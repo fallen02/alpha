@@ -1,0 +1,109 @@
+---
+import "@fontsource/ubuntu";
+import "../global.css";
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title}</title>
+    </head>
+    <body class="scrollbar-hidden">
+        <slot />
+    </body>
+</html>
+<script>
+  import Lenis from 'lenis'
+  const lenis = new Lenis({
+    autoRaf: true,
+    // easing: function easeOutBounce(t) :number{
+    //     return t < 0.5
+    //     ? (1 - Math.sqrt(1 - Math.pow(2 * t, 2))) / 2
+    //       : (Math.sqrt(1 - Math.pow(-2 * t + 2, 2)) + 1) / 2;
+        
+    // }
+  });
+  
+  // Listen for the scroll event and log the event data
+  // lenis.on('scroll', (e) => {
+  //   console.log(e);
+  // }
+  // );
+
+</script>
+<script is:inline>
+
+    const getThemePreference = () => {
+        if (
+            typeof localStorage !== "undefined" &&
+            localStorage.getItem("theme")
+        ) {
+            return localStorage.getItem("theme");
+        }
+        return window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+    };
+    const isDark = getThemePreference() === "dark";
+    document.documentElement.classList[isDark ? "add" : "remove"]("dark");
+
+    if (typeof localStorage !== "undefined") {
+        const observer = new MutationObserver(() => {
+            const isDark = document.documentElement.classList.contains("dark");
+            localStorage.setItem("theme", isDark ? "dark" : "light");
+        });
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ["class"],
+        });
+    }
+</script>
+<style is:global>
+    @font-face {
+        font-family: "Obviously";
+        src: url("/fonts/obviously/Obviously.woff") format("woff");
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+    }
+    @font-face {
+        font-family: "ObviouslyBold";
+        src: url("/fonts/obviously/Obviously_Bold.woff") format("woff");
+        font-weight: bold;
+        font-style: normal;
+        font-display: swap;
+    }
+    @font-face {
+        font-family: "ObviouslyLight";
+        src: url("/fonts/obviously/Obviously_Light.woff") format("woff");
+        font-weight: light;
+        font-style: normal;
+        font-display: swap;
+    }
+    @font-face {
+        font-family: "ObviouslyMedium";
+        src: url("/fonts/obviously/Obviously_Medi.woff") format("woff");
+        font-weight: Medium;
+        font-style: normal;
+        font-display: swap;
+    }
+    @font-face {
+        font-family: "ObviouslySemiBold";
+        src: url("/fonts/obviously/Obviously_Semi.woff") format("woff");
+        font-weight: SemiBold;
+        font-style: normal;
+        font-display: swap;
+    }
+    @font-face {
+        font-family: "ObviouslyThin";
+        src: url("/fonts/obviously/Obviously_Thin.woff") format("woff");
+        font-weight: Thin;
+        font-style: normal;
+        font-display: swap;
+    }
+</style>

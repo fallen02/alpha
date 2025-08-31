@@ -1,0 +1,149 @@
+---
+import { Icon } from "astro-icon/components";
+import Container from "./Container.astro";
+import { slides } from "../../constants/hero";
+---
+<Container class="max-w-[86rem] py-10">
+    <div class="w-full h-full">
+        <div
+            id="swiper"
+            class="relative max-h-[30rem] h-dvh w-full overflow-hidden rounded-2xl"
+        >
+            <div
+                id="swiper_prev"
+                class="absolute bg-background z-15 left-0 top-1/2 rounded-r-full p-1 cursor-pointer before:absolute before:size-[16px] before:bg-green-600 before:top-[-16px] before:left-0 before:[background:radial-gradient(circle_16px_at_top_right,_#0000_100%,_var(--background))_top_right] after:absolute after:size-[16px] after:bg-green-600 after:bottom-[-16px] after:left-0 after:[background:radial-gradient(circle_16px_at_bottom_right,_#0000_100%,_var(--background))_bottom_left]"
+            >
+                <Icon name="arrow" class="size-15 stroke-foreground" />
+            </div>
+            <div
+                id="swiper_next"
+                class="absolute bg-background z-15 right-0 top-1/2 rounded-l-full p-1 cursor-pointer before:absolute before:size-[16px] before:bg-green-600 before:top-[-16px] before:right-0 before:[background:radial-gradient(circle_16px_at_top_left,_#0000_100%,_var(--background))_top_left] after:absolute after:size-[16px] after:bg-green-600 after:bottom-[-16px] after:right-0 after:[background:radial-gradient(circle_16px_at_bottom_left,_#0000_100%,_var(--background))_bottom_left]"
+            >
+                <Icon
+                    name="arrow"
+                    class="size-15 stroke-foreground rotate-180"
+                />
+            </div>
+            <div
+                class="absolute z-15 flex flex-col gap-10 right-[20px] bottom-[20px]"
+                id="pagination"
+            >
+            </div>
+
+            <div class="swiper-wrapper z-10">
+                {
+                    slides.map((slide, index) => (
+                        <div class="swiper-slide">
+                            <div class="relative h-full w-full">
+                                <img
+                                    src={slide.img}
+                                    alt="image"
+                                    class="h-full w-full object-cover object-center"
+                                />
+                                <div class="absolute h-fit w-full z-50 bottom-0 flex justify-center items-center">
+                                    <div class="relative px-15 py-5 bg-background rounded-t-2xl">
+                                        <div class="absolute size-[16px] bg-emerald-600 left-[-16px] bottom-0 [background:radial-gradient(circle_16px_at_top_left,_#0000_100%,_var(--background))_top_right]" />
+                                        <div class="absolute size-[16px] bg-emerald-600 right-[-16px] bottom-0 [background:radial-gradient(circle_16px_at_top_right,_#0000_100%,_var(--background))_top_right]" />
+                                        <p class="text-center uppercase tracking-wide font-ubuntu font-medium text-gray-500">
+                                            {slide.cardDesc}
+                                        </p>
+                                        <h1 class="text-foreground font-obviousMid text-3xl text-center">
+                                            {slide.cardHead}
+                                        </h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    </div>
+    <div class="w-full flex py-10 gap-10 justify-between items-center">
+        <div
+            class="bg-card border border-border px-10 py-5 rounded-lg flex flex-col gap-3"
+            id="heroCard"
+        >
+            <p class="text-4xl font-ObviousSemiBold text-text">50+</p>
+            <p class="font-ubuntu">Completed Projects</p>
+        </div>
+        <div
+            class="bg-card border border-border px-10 py-5 rounded-lg flex flex-col gap-3"
+            id="heroCard"
+        >
+            <p class="text-4xl font-ObviousSemiBold text-text">7+</p>
+            <p class="font-ubuntu">Years of Experience</p>
+        </div>
+        <p class="text-2xl w-2xl font-medium" id="desc">
+            We help creative agencies, designers, and other creative people
+            showcase their works and connect with clients
+        </p>
+    </div>
+</Container>
+
+<script>
+    import Swiper from "swiper";
+    import { Navigation, Autoplay, Pagination } from "swiper/modules";
+    import "swiper/css";
+    import "swiper/css/navigation";
+    import "swiper/css/pagination";
+    import { animate, inView } from "motion";
+
+    inView("#swiper", (element) => {
+        animate(
+            element,
+            { opacity: [0.5, 1] },
+            {
+                duration: 0.9,
+                easing: [0.17, 0.55, 0.55, 1],
+            },
+        );
+
+        return () => animate(element, { opacity: 0 });
+    });
+    inView("#heroCard", (element) => {
+        animate(
+            element,
+            { opacity: [0, 1], x: [-25, 0] },
+            {
+                duration: 0.9,
+                easing: [0.17, 0.55, 0.55, 1],
+            },
+        );
+
+        return () => animate(element, { opacity: 0, x: -50 });
+    });
+    inView("#desc", (element) => {
+        animate(
+            element,
+            { opacity: [0, 1], x: [25, 0] },
+            {
+                duration: 0.9,
+                easing: [0.17, 0.55, 0.55, 1],
+            },
+        );
+
+        return () => animate(element, { opacity: 0, x: -100 });
+    });
+    // animate("#box", { rotate: 360 }, { duration: 1 });
+    document.addEventListener("DOMContentLoaded", () => {
+        
+        // Initialize main swiper
+        const main_swiper = new Swiper("#swiper", {
+            loop: true,
+            modules: [Navigation, Autoplay, Pagination],
+            navigation: {
+                nextEl: "#swiper_next",
+                prevEl: "#swiper_prev",
+            },
+            
+            spaceBetween: 30,
+            // slidesPerView: 1,
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+            },
+            speed: 1500,
+        });
+    });
+</script>

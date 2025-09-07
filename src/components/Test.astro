@@ -1,0 +1,16 @@
+---
+import Container from "./Container.astro";
+import LineMarquee from "./section/LineMarquee.astro"
+---
+
+<Container class="py-15">
+    <div class="relative flex flex-col w-full h-full justify-center items-center group">
+        <div class="py-5 overflow-hidden">
+            <h1 class="text-6xl z-10 group-hover:hidden">Hello</h1>
+            <div class="w-full max-w-7xl h-full overflow-hidden">
+                <LineMarquee text="Hello"/>
+            </div>
+        </div>
+       
+    </div>
+</Container>

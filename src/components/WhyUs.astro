@@ -1,0 +1,98 @@
+---
+import { Services } from "../../constants/services";
+import Container from "./Container.astro";
+import { Icon } from "astro-icon/components";
+---
+
+<Container class="py-15 relative">
+
+    <div
+        class="absolute h-[2px] w-full bottom-0 left-0 bg-radial from-gray-400/30 from-30% to-60% to-transparent z-0"
+    />
+    <div class="relative flex w-full p-5 gap-10 z-10">
+        <div class="w-1/2" id="left_content">
+            <div class="sticky top-[calc(50%_-_135px)] flex flex-col gap-3">
+                <h1 class="text-5xl font-ubuntu font-medium">Why Choose Us</h1>
+                <p class="text-lg">
+                    We are a passionate team of designers and developers who
+                    believe in the power of creativity. We help creative
+                    professionals create a strong online presence that showcases
+                    their work and tells their story.
+                </p>
+                <div class="flex w-full justify-end">
+                    <a
+                        href="#"
+                        class="relative flex gap-1 items-center w-fit group"
+                    >
+                        <div
+                            class="w-full h-[2px] absolute bg-primary/80 -bottom-1 left-0 group-hover:w-0 transition-all duration-500"
+                        >
+                        </div>
+                        <span class="text-lg uppercase"
+                            >Learn More About Us</span
+                        >
+                        <Icon
+                            name="arrowLong"
+                            class="size-8 stroke-[1.5] stroke-foreground -rotate-45 group-hover:rotate-0 transition-transform duration-200"
+                        />
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="w-1/2 px-5">
+            <div class="flex flex-col gap-5">
+                {
+                    Services.map((service, idx) => (
+                        <div class="px-5 py-5 flex flex-col gap-10 bg-card rounded-2xl border border-accent" id=`card${idx}`>
+                            <h1 class="text-3xl font-ubuntu font-medium ">
+                                {service.title}
+                                <span class="text-primary/80">
+                                    {service.colordTitle}
+                                </span>
+                                {service.restTitle}
+                                <span class="text-primary/80">.</span>
+                            </h1>
+                            <p>{service.desc}</p>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    </div>
+</Container>
+
+<script>
+import { animate, inView } from "motion";
+inView("#left_content", (element) => {
+    animate(
+        element,
+        { x: [-100, 0], opacity: [0, 1] },
+        {
+            duration: 0.9,
+            easing: [0.17, 0.55, 0.55, 1],
+            // delay: 0.2,
+        },
+    );
+
+    return () => animate(element, { x: -100, opacity: 0 });
+});
+
+
+
+Array(5).fill(0).map((_,idx) => {
+  inView(`#card${idx}`, (element) => {
+      animate(
+          element,
+          { scale: [0.7, 1], opacity: [0.2, 1] },
+          {
+              duration: 0.9,
+              easing: [0.17, 0.55, 0.55, 1],
+              delay: 0.2,
+          },
+      );
+  
+      return () => animate(element, { scale: 0.7, opacity: 0.2 });
+  });
+})
+
+</script>

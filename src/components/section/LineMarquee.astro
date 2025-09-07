@@ -1,0 +1,27 @@
+---
+const {text} = Astro.props
+---
+<div
+    class="hidden z-0 group-hover:flex w-full h-full  gap-8 overflow-hidden  [--speed:20s] bg-gray-300"
+    id="marquee"
+>
+    {
+        Array(2)
+            .fill(0)
+            .map((_, i) => (
+                <div class="flex z-10 gap-8 justify-around items-center shrink-0 -translate-x-[30%]  motion-safe:animate-marquee-left2 pb-4 pt-1">
+                    {Array(10)
+                        .fill(0)
+                        .map((_, i) => (
+                            <div class="flex justify-center items-center gap-8  ">
+                                <!-- <div class="size-4 border-4 rounded  rotate-45" /> -->
+                                <span class="text-5xl italic font-obviousMid text-background">*</span>
+                                <p class="text-5xl text-background font-obviousMid font-medium bg-transparent italic">
+                                    {text}
+                                </p>
+                            </div>
+                        ))}
+                </div>
+            ))
+    }
+</div>

@@ -1,7 +1,155 @@
 ---
+import { links } from "../../constants/links";
+import { socials } from "../../constants/socials";
 import Container from "./Container.astro";
+import { Icon } from "astro-icon/components";
 ---
 
-<Container class="py-15">
-    <h1>Footer</h1>
+<Container class="my-15 max-w-[86rem]">
+    <div class="py-15 px-10 bg-card/80 flex" id="bg-container">
+        <div class="w-2/5 flex flex-col gap-5 pr-10" id="leftFooter">
+            <a href="#" class="text-5xl font-obviousMid">
+                One<span class="text-primary">.</span>
+            </a>
+            <p class="text-gray-400">
+                We are a passionate team of developers and designers who believe
+                in the power of creativity. We help creative people create a
+                strong online presence that shows their work and tells a story.
+            </p>
+            <div class="flex flex-col gap-3">
+                <p
+                    class="text-lg font-ubuntu uppercase font-medium tracking-wide"
+                >
+                    Follow Us
+                </p>
+                <div class="flex gap-8" id="socials">
+                    {
+                        socials.map((social) => (
+                            <a
+                                id="socialIcon"
+                                href={social.href}
+                                class="p-3 border rounded-xl group hover:bg-primary hover:border-primary transition-colors duration-300"
+                            >
+                                <Icon
+                                    name={social.icon}
+                                    class="size-5 group-hover:scale-[1.2] transition-transform duration-300"
+                                />
+                            </a>
+                        ))
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="w-3/5 flex justify-between px-10" id="rightFooter">
+            {
+                links.map((link) => (
+                    <div class="flex flex-col gap-5  px-5">
+                        <h1 class="text-2xl pl-1.5 font-ubuntu font-medium">
+                            {link.name}
+                        </h1>
+                        <div class="flex flex-col gap-1">
+                            {link.data.map((data) => (
+                                <a
+                                    href={data.href}
+                                    class="text-lg pl-1.5 pr-3 py-1 rounded text-gray-400 hover:text-gray-200 hover:bg-accent/50 transition-colors duration-300"
+                                >
+                                    {data.title}
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+                ))
+            }
+            <div class="flex flex-col gap-6 px-5">
+                <h1 class="text-2xl font-ubuntu font-medium">Contact Us</h1>
+                <div class="flex flex-col gap-3">
+                    <a
+                        href="tel:+917894561230"
+                        class="flex items-center gap-3 group"
+                    >
+                        <div class="p-3 bg-accent/90 rounded-full">
+                            <Icon
+                                name="phone"
+                                class="size-5 stroke-foreground stroke-2 group-hover:scale-[1.2] transition-transform duration-300"
+                            />
+                        </div>
+                        <p
+                            class="text-lg font-ubuntu text-gray-400 group-hover:text-gray-200 transition-colors duration-300"
+                        >
+                            +91 0123456789
+                        </p>
+                    </a>
+                    <a
+                        href="mailto:mail@gamil.com"
+                        class="flex items-center gap-3 group"
+                    >
+                        <div class="p-3 bg-accent/90 rounded-full">
+                            <Icon
+                                name="mail"
+                                class="size-5 stroke-foreground stroke-2 group-hover:scale-[1.2] transition-transform duration-300"
+                            />
+                        </div>
+                        <p
+                            class="text-lg font-ubuntu text-gray-400 group-hover:text-gray-200 transition-colors duration-300"
+                        >
+                            mail@mail.com
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="py-10 flex justify-center items-center">
+        <p class="text-xl">Copyright © 2025. All Rights Reserved.</p>
+    </div>
 </Container>
+
+<script>
+    import { animate, inView, stagger } from "motion";
+
+    inView("#socials", (element) => {
+        animate(
+            "#socials #socialIcon",
+            { y: [50, 0], opacity: [0, 1] },
+            {
+                duration: 0.9,
+                easing: [0.17, 0.55, 0.55, 1],
+                delay: stagger(0.2),
+            },
+        );
+        return () => animate(element, { y: 0, opacity: 1 });
+    });
+    inView("#leftFooter", (element) => {
+        animate(
+            element,
+            { x: [-50, 0], opacity: [0, 1] },
+            {
+                duration: 0.9,
+                easing: [0.17, 0.55, 0.55, 1],
+            },
+        );
+        return () => animate(element, { x: -50, opacity: 0 });
+    });
+    inView("#rightFooter", (element) => {
+        animate(
+            element,
+            { x: [50, 0], opacity: [0, 1] },
+            {
+                duration: 0.9,
+                easing: [0.17, 0.55, 0.55, 1],
+            },
+        );
+        return () => animate(element, { x: 50, opacity: 0 });
+    });
+    inView("#bg-container", (element) => {
+        animate(
+            element,
+            { opacity: [0, 1] },
+            {
+                duration: 0.9,
+                easing: [0.17, 0.55, 0.55, 1],
+            },
+        );
+        return () => animate(element, { opacity: 0 });
+    });
+</script>

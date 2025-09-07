@@ -1,0 +1,115 @@
+---
+import Container from "./Container.astro";
+import { Icon } from "astro-icon/components";
+
+const services = [
+    {
+        name: "Branding",
+        desc: "We weave visual stories and craft strategic messaging that resonate at heartstrings, build unwavering trust, and turn customers into fervent brand champions. Imagine seeing your logo come alive, not just a symbol but a rallying cry, an unwavering beacon in a sea of sameness. That's the power of branding we unleash.",
+        href: "#",
+    },
+    {
+        name: "Marketing",
+        desc: "We design data-driven campaigns that crackle with energy, ignite engagement like wildfire, and turn clicks into conversions. Picture social media abuzz with your brand, blog posts sparking curiosity, and targeted ads finding their perfect match. We're the storm that propels your brand to ever-higher heights.",
+        href: "#",
+    },
+    {
+        name: "Graphic Design",
+        desc: "We craft visual masterpieces that sing your brand's story in vibrant colors and captivating shapes. From logos that lodge in minds to infographics that make complex ideas sing, we inject emotional punch and crystal-clear clarity into every pixel. Let your visuals become the unforgettable face of your brand.",
+        href: "#",
+    },
+    {
+        name: "Web Design",
+        desc: "We sculpt user-friendly websites that convert visitors into loyal devotees, seamlessly blending stunning aesthetics with intuitive navigation and flawless experiences for every screen. Imagine your website as a warm, inviting space where potential customers linger, explore, and ultimately succumb to its charms. We craft that digital haven.",
+        href: "#",
+    },
+    {
+        name: "Content Creation",
+        desc: "We weave compelling narratives into blog posts, website copy, and social media content that resonate with your audience like a well-loved symphony. Picture search engines whispering your brand's name, and customers sharing your story with eager ears. We craft the voice that makes your brand sing.",
+        href: "#",
+    },
+];
+---
+
+<Container class="py-20 relative overflow-hidden">
+    <div
+        class="absolute h-full w-full -bottom-1/2 left-0 bg-radial from-gray-400/10 from-0% to-50% to-transparent z-0"
+    >
+    </div>
+    <div class="flex justify-center items-center flex-col gap-5 " id="heading">
+        <h1 class="text-6xl font-semibold font-ubuntu">Our Services</h1>
+        <p class="text-xl w-1/2 text-center">
+            We offer a wide range of creative services to help businesses of all
+            sizes achieve their goals. Our services include:
+        </p>
+    </div>
+    <div class="flex flex-col pt-15">
+        {
+            services.map((service, idx) => (
+                <a
+                    href={service.href}
+                    class="relative flex py-10 px-5 group overflow-hidden"
+                    id={`service_card${idx}`}
+                >
+                    <div class="absolute h-[1px] w-full top-0 bg-radial from-10% from-gray-400 to-90% to-transparent opacity-80" />
+                    {idx === services.length - 1 ? (
+                        <div class="absolute h-[1px] w-full bottom-0 bg-radial from-10% from-gray-400 to-80% to-transparent opacity-80" />
+                    ) : (
+                        ""
+                    )}
+                    <div class="absolute z-0  h-full -top-1/2 w-full bg-radial from-foreground/30 from-5% to-transparent to-50% bg-no-repeat opacity-0 group-hover:opacity-50 blur-2xl transititransition-opacity duration-300" />
+                    <div class="w-1/3">
+                        <h1 class="text-4xl font-medium font-ubuntu">
+                            {service.name}
+                            <span class="text-primary">.</span>
+                        </h1>
+                    </div>
+                    <div class="w-2/3 flex justify-center items-center gap-10">
+                        <p class="text-gray-400">{service.desc}</p>
+                        <div class="p-3 w-fit border-2 rounded-xl group-hover:bg-primary/80 group-hover:border-primary/80 transition-colors duration-300">
+                            <Icon
+                                name="arrowLong"
+                                class="size-15 stroke-[1.5] stroke-foreground -rotate-45  group-hover:scale-[1.2] transition-transform duration-200"
+                            />
+                        </div>
+                    </div>
+                </a>
+            ))
+        }
+    </div>
+</Container>
+
+<script>
+import { animate, inView } from "motion";
+inView("#heading", (element) => {
+    animate(
+        element,
+        { y: [-50, 0], opacity: [0.3, 1] },
+        {
+            duration: 0.9,
+            easing: [0.17, 0.55, 0.55, 1],
+            // delay: 0.2,
+        },
+    );
+
+    return () => animate(element, { y: -50, opacity: 0 });
+});
+
+
+
+Array(5).fill(0).map((_,idx) => {
+  inView(`#service_card${idx}`, (element) => {
+      animate(
+          element,
+          { y: [50 + 10 * idx, 0], opacity: [0.3, 1] },
+          {
+              duration: 0.9,
+              easing: [0.17, 0.55, 0.55, 1],
+              delay: 0.2 * idx,
+          },
+      );
+  
+      return () => animate(element, { y: 50 + 10 * idx, opacity: 0.3 });
+  });
+})
+</script>

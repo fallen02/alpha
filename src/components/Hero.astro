@@ -3,7 +3,8 @@ import { Icon } from "astro-icon/components";
 import Container from "./Container.astro";
 import { slides } from "../../constants/hero";
 ---
-<Container class="max-w-[86rem] py-10">
+
+<Container class="py-10">
     <div class="w-full h-full">
         <div
             id="swiper"
@@ -127,7 +128,6 @@ import { slides } from "../../constants/hero";
     });
     // animate("#box", { rotate: 360 }, { duration: 1 });
     document.addEventListener("DOMContentLoaded", () => {
-        
         // Initialize main swiper
         const main_swiper = new Swiper("#swiper", {
             loop: true,
@@ -136,7 +136,7 @@ import { slides } from "../../constants/hero";
                 nextEl: "#swiper_next",
                 prevEl: "#swiper_prev",
             },
-            
+
             spaceBetween: 30,
             // slidesPerView: 1,
             autoplay: {

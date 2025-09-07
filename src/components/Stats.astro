@@ -1,0 +1,53 @@
+---
+import Container from "./Container.astro";
+import { StatsData } from "../../constants/stats";
+import { cn } from "../../lib/utils";
+---
+
+<Container class="py-25">
+    <div class="flex justify-between gap-10" id="stats">
+        {
+          StatsData.map((stat, idx) => (
+          <div id="statCard"  class={cn("bg-card border border-accent p-10 w-1/4 rounded-2xl grid gap-3", idx == StatsData.length -1 ? "bg-primary border-primary": "")}>
+              <p class="text-5xl font-obviousMid">{stat.number}</p>
+              <p class="text-lg font-ubuntu">{stat.text}</p>
+          </div>
+          ))
+        }
+    </div>
+</Container>
+
+<script>
+import { animate, inView, stagger } from "motion";
+
+inView('#stats', (element) => {
+  animate(
+    "#stats #statCard",
+    {y: [50, 0], opacity: [0.3, 1]},
+    {
+      duration: 0.9,
+      easing: [0.17, 0.55, 0.55, 1],
+      delay: stagger(0.3)
+      
+    }
+    
+  )
+  return () => animate(element, { y: 0 , opacity: 1 });
+})
+
+// Array(5).fill(0).map((_,idx) => {
+//   inView(`#statCard${idx}`, (element) => {
+//       animate(
+//           element,
+//           { y: [50 + idx*20, 0], opacity: [0.3, 1] },
+//           {
+//               duration: 0.9,
+//               easing: [0.17, 0.55, 0.55, 1],
+//               delay: 0.2 * idx,
+//           },
+//       );
+  
+//       return () => animate(element, { y: 50 + idx*20, opacity: 0.3 });
+//   });
+// })
+</script>

@@ -1,0 +1,146 @@
+---
+import Container from "./Container.astro";
+import { Icon } from "astro-icon/components";
+---
+
+<Container class="relative py-15 overflow-hidden" id="passion_wrap">
+    <div
+        class="absolute h-full w-full -top-1/2 left-0 bg-radial from-gray-400/10 from-0% to-50% to-transparent z-0"
+    />
+    
+    <div
+        class="absolute h-[2px] w-full bottom-0 left-0 bg-radial from-gray-400/30 from-30% to-60% to-transparent z-0"
+    />
+    
+    <div class="relative flex w-full gap-10 py-15 z-40">
+        <div class="w-1/2">
+            <img
+                src="https://placehold.co/960"
+                alt="image"
+                class="h-full w-full rounded-2xl object-cover object-center"
+                id="image"
+            />
+        </div>
+        <div class="w-1/2 flex flex-col gap-5 justify-between">
+            <div class="flex flex-col gap-5">
+                <h1 class="text-4xl font-ubuntu font-medium" id="passion_title">
+                    We are a passionate team of designers and devlopers.
+                </h1>
+                <p
+                    class="text-2xl text-gary-200 dark:text-gray-300"
+                    id="passion_subtitle"
+                >
+                    We are a passionate team of designers and devlopers who
+                    believe in power of creativity.
+                </p>
+                <p class="text-gary-200 dark:text-gray-300" id="passion_desc">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Repellendus dolorum voluptatem a, quisquam perferendis id
+                    itaque voluptate sint hic quibusdam libero mollitia porro
+                    pariatur, laudantium temporibus. Aspernatur, voluptatibus.
+                    Qui, dicta.
+                </p>
+            </div>
+            <div class="flex gap-5 group cursor-pointer" id="learn_more">
+                <div
+                    class="flex justify-center items-center p-2 border-2 rounded-2xl group-hover:bg-primary group-hover:border-primary transition-colors duration-200"
+                >
+                    <Icon
+                        name="arrowLong"
+                        class="size-15 stroke-[1.5] stroke-foreground -rotate-45 group-hover:rotate-0 transition-transform duration-200"
+                    />
+                </div>
+                <div class="h-full flex flex-col justify-center">
+                    <p class="text-lg font-obviousMid">We are</p>
+                    <p class="text-lg font-obviousMid">Passonate Team</p>
+                    <p class="text-lg text-gray-400 font-medium uppercase mt-1.5">
+                        Learn more about us
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</Container>
+
+<script>
+    import { animate, inView } from "motion";
+
+    inView("#passion_wrap", (element) => {
+        animate(
+            element,
+            { scale: [0.9, 1], opacity: [0.5, 1] },
+            {
+                duration: 0.9,
+                easing: [0.17, 0.55, 0.55, 1],
+            },
+        );
+
+        return () => animate(element, { opacity: 0, scale: 0.5 });
+    });
+    inView("#passion_title", (element) => {
+        animate(
+            element,
+            { x: [50, 0], opacity: [0.3, 1] },
+            {
+                duration: 0.9,
+                easing: [0.17, 0.55, 0.55, 1],
+                delay: 0.4,
+            },
+        );
+
+        return () => animate(element, { x: 50, opacity: 0.3 });
+    });
+    inView("#passion_subtitle", (element) => {
+        animate(
+            element,
+            { x: [50, 0], opacity:[0, 1] },
+            {
+                duration: 0.9,
+                easing: [0.17, 0.55, 0.55, 1],
+                delay: 0.6,
+            },
+        );
+
+        return () => animate(element, { x: 50, opacity: 0.3 });
+    });
+   
+    inView("#passion_desc", (element) => {
+        animate(
+            element,
+            { opacity:[0, 1] },
+            {
+                duration: 0.9,
+                easing: [0.17, 0.55, 0.55, 1],
+                delay: 0.7,
+            },
+        );
+
+        return () => animate(element, {  opacity: 0 });
+    });
+    inView("#learn_more", (element) => {
+        animate(
+            element,
+            { opacity:[0, 1] },
+            {
+                duration: 0.9,
+                easing: [0.17, 0.55, 0.55, 1],
+                delay: 0.5,
+            },
+        );
+
+        return () => animate(element, {  opacity: 0 });
+    });
+    inView("#image", (element) => {
+        animate(
+            element,
+            { x:[-50, 0], opacity: [0, 1] },
+            {
+                duration: 0.9,
+                easing: [0.17, 0.55, 0.55, 1],
+                delay: 0.5
+            },
+        );
+
+        return () => animate(element, { opacity: 0, x:-50 });
+    });
+</script>
